@@ -35,7 +35,7 @@ def autoeval(code_path, testcases_path, flag=None) -> tuple:
     # Compiles C code
     # Compilation errors need to be handled here
     compilation_process = subprocess.run(
-        "gcc " + code_path,
+        "gcc " + code_path + " -o /tmp/a.out",
         text=True,
         timeout=5,
         shell=True,
@@ -43,7 +43,7 @@ def autoeval(code_path, testcases_path, flag=None) -> tuple:
     )
 
     if not os.path.exists(
-        os.path.join(os.getcwd(), "a.out")
+        os.path.join("/tmp/a.out")
     ):  # If compilation error occurs
         output += "Compilation Error:\n"
         print(compilation_process.stderr)
@@ -65,7 +65,7 @@ def autoeval(code_path, testcases_path, flag=None) -> tuple:
 
             # Terminate process after 5 seconds
             completed_process = subprocess.run(
-                "./a.out",
+                "/tmp/a.out",
                 capture_output=True,
                 input=process_stdin,
                 text=True,
@@ -107,7 +107,7 @@ def autoeval(code_path, testcases_path, flag=None) -> tuple:
     output += "\nFinal Score:" + str(score) + "/" + str(testcase_num)
 
     # Deletes a.out after evaluation
-    if os.path.exists("a.out"):
-        os.remove("a.out")
+    if os.path.exists("/tmp/a.out"):
+        os.remove("/tmp/a.out")
 
     return output, score

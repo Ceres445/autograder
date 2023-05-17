@@ -33,17 +33,17 @@ async def upload_program(files: List[UploadFile]):
             "filenames": [file.filename for file in files],
             "error": "Wrong number of files",
         }
-    if not os.path.exists("./files"):
-        os.mkdir("./files")
+    if not os.path.exists("/tmp/files"):
+        os.mkdir("/tmp/files")
     for file in files:
         if file.filename.endswith(".c"):
-            destination_file_path = "./files/test.c"
+            destination_file_path = "/tmp/files/test.c"
             async with aiofiles.open(destination_file_path, "wb") as out_file:
                 while content := await file.read(1024):  # async read file chunk
                     await out_file.write(content)  # async write file chunk
             c = True
         elif file.filename.endswith(".json"):
-            destination_file_path = "./files/test.json"
+            destination_file_path = "/tmp/files/test.json"
             async with aiofiles.open(destination_file_path, "wb") as out_file:
                 while content := await file.read(1024):
                     await out_file.write(content)
@@ -68,10 +68,10 @@ async def upload_program(files: List[UploadFile]):
 
 @app.get("/test")
 async def test():
-    if os.path.exists("./files/test.c") and os.path.exists("./files/test.json"):
-        result = autoeval("./files/test.c", "./files/test.json")
-        os.remove("./files/test.c")
-        os.remove("./files/test.json")
+    if os.path.exists("/tmp/files/test.c") and os.path.exists("/tmp/files/test.json"):
+        result = autoeval("/tmp/files/test.c", "/tmp/files/test.json")
+        os.remove("/tmp/files/test.c")
+        os.remove("/tmp/files/test.json")
         return {"Result": "OK", "content": result[0], "score": result[1]}
     else:
         return {"Result": "ERROR", "content": "Files don't exist"}
