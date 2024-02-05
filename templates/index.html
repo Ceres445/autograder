@@ -3,13 +3,28 @@
 <head>
     <title>Some HTML in here</title>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D5BFW8WVSV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-D5BFW8WVSV');
+</script>
 
 <body>
     <h1>Look ma! HTML!</h1>
     <div>
         <form id='form1'>
-            <input type="file" name="C_file" id="C_file">
+            <div> Submit C file here
+                <input type="file" name="C_file" id="C_file">
+            </div>
+           <div>
+            Submit json test cases file here
             <input type="file" name="json_file" id="json_file">
+           </div>
+            
             <input type="submit" value="Submit">
         </form>
     </div>
