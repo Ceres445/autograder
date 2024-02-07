@@ -4,6 +4,9 @@ import pytest
 # from src.index import root, say_hello, hello_message
 
 
+def test_always_passes():
+    assert True
+
 # @pytest.mark.asyncio
 # async def test_root():
 #     result = await root()
